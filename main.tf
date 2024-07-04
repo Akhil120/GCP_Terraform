@@ -4,7 +4,7 @@ provider "google" {
 }
 
 resource "google_compute_instance_template" "instance_template" {
-  name           = "instance-template-20240704-154708"
+  name           = "instance-template-test-vms"
   machine_type   = "e2-medium"
   region         = "us-central1"
   tags           = ["test-vm", "http-server", "https-server"]
@@ -12,7 +12,7 @@ resource "google_compute_instance_template" "instance_template" {
   disk {
     auto_delete  = true
     boot         = true
-    device_name  = "instance-template-20240704-154708"
+    device_name  = "instance-template-test-vms"
     source_image = "projects/debian-cloud/global/images/debian-12-bookworm-v20240701"
     mode         = "READ_WRITE"
     disk_size_gb = 10
