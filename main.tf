@@ -21,7 +21,6 @@ resource "google_compute_instance_template" "instance_template" {
 
   network_interface {
     network       = "default"
-    network_tier  = "PREMIUM"
   }
 
   service_account {
