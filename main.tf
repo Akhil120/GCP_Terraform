@@ -33,6 +33,7 @@ resource "google_compute_instance_template" "instance_template" {
     on_host_maintenance = "TERMINATE"
     provisioning_model  = "SPOT"
     instance_termination_action = "STOP"
+    preemptible       = true
   }
 
   shielded_instance_config {
