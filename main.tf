@@ -42,6 +42,6 @@ resource "google_compute_instance_template" "instance_template" {
   }
 
   reservation_affinity {
-    type = "any"
+    type = "ANY_RESERVATION"
   }
 }
