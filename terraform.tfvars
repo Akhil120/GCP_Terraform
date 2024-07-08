@@ -5,7 +5,6 @@ disk_image              = "projects/debian-cloud/global/images/debian-12-bookwor
 disk_size_gb            = 10
 disk_type               = "pd-balanced"
 machine_type            = "e2-medium"
-instance_name           = "instance-1"
 network_tier            = "PREMIUM"
 subnetwork              = "default"
 service_account_email   = "803004829511-compute@developer.gserviceaccount.com"
