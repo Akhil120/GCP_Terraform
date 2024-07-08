@@ -1,1 +1,13 @@
-project_id = "playground-s-11-1954b9fd"
+project_id              = "playground-s-11-1954b9fd"
+region                  = "us-central1"
+disk_image              = "projects/debian-cloud/global/images/debian-12-bookworm-v20240701"
+disk_size_gb            = 10
+disk_type               = "pd-balanced"
+machine_type            = "e2-medium"
+instance_name           = "instance-1"
+network_tier            = "PREMIUM"
+subnetwork              = "default"
+service_account_email   = "803004829511-compute@developer.gserviceaccount.com"
+service_account_scopes  = ["https://www.googleapis.com/auth/cloud-platform"]
+tags                    = ["http-server", "https-server", "test-vm"]
+zone                    = "us-central1-c"

@@ -1,48 +1,61 @@
 provider "google" {
   project = var.project_id
-  region  = "us-central1"
+  region  = var.region
 }
 
-resource "google_compute_instance_template" "instance_template" {
-  name           = "instance-template-test-vms"
-  machine_type   = "e2-medium"
-  region         = "us-central1"
-  tags           = ["test-vm", "http-server", "https-server"]
+resource "google_compute_instance" "instance-1" {
+  boot_disk {
+    auto_delete = true
+    device_name = "instance-1"
 
-  disk {
-    auto_delete  = true
-    boot         = true
-    device_name  = "instance-template-test-vms"
-    source_image = "projects/debian-cloud/global/images/debian-12-bookworm-v20240701"
-    mode         = "READ_WRITE"
-    disk_size_gb = 10
-    type         = "pd-balanced"
+    initialize_params {
+      image = var.disk_image
+      size  = var.disk_size_gb
+      type  = var.disk_type
+    }
+
+    mode = "READ_WRITE"
   }
+
+  can_ip_forward      = false
+  deletion_protection = false
+  enable_display      = false
+
+  labels = {
+    goog-ec-src = "vm_add-tf"
+  }
+
+  machine_type = var.machine_type
+  name         = var.instance_name
 
   network_interface {
-    network       = "default"
-  }
+    access_config {
+      network_tier = var.network_tier
+    }
 
-  service_account {
-    email  = "287205428976-compute@developer.gserviceaccount.com"
-    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+    queue_count = 0
+    stack_type  = "IPV4_ONLY"
+    subnetwork  = "projects/${var.project_id}/regions/${var.region}/subnetworks/${var.subnetwork}"
   }
 
   scheduling {
     automatic_restart   = false
     on_host_maintenance = "TERMINATE"
+    preemptible         = false
     provisioning_model  = "SPOT"
-    instance_termination_action = "STOP"
-    preemptible       = true
+  }
+
+  service_account {
+    email  = var.service_account_email
+    scopes = var.service_account_scopes
   }
 
   shielded_instance_config {
+    enable_integrity_monitoring = true
     enable_secure_boot          = false
     enable_vtpm                 = true
-    enable_integrity_monitoring = true
   }
 
-  reservation_affinity {
-    type = "ANY_RESERVATION"
-  }
+  tags = var.tags
+  zone = var.zone
 }
