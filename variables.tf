@@ -33,9 +33,13 @@ variable "machine_type" {
 }
 
 variable "instance_name" {
-  description = "The name of the instance"
+  description = "The base name of the instances"
   type        = string
-  default     = "instance-1"
+}
+
+variable "instance_count" {
+  description = "Number of instances to create"
+  type        = number
 }
 
 variable "network_tier" {

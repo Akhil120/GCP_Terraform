@@ -3,10 +3,15 @@ provider "google" {
   region  = var.region
 }
 
-resource "google_compute_instance" "instance-1" {
+resource "google_compute_instance" "instance" {
+  count        = var.instance_count
+  name         = "${var.instance_name}-${count.index + 1}"
+  machine_type = var.machine_type
+  zone         = var.zone
+
   boot_disk {
     auto_delete = true
-    device_name = var.instance_name
+    device_name = "${var.instance_name}-${count.index + 1}"
 
     initialize_params {
       image = var.disk_image
@@ -25,9 +30,6 @@ resource "google_compute_instance" "instance-1" {
     goog-ec-src = "vm_add-tf"
   }
 
-  machine_type = var.machine_type
-  name         = var.instance_name
-
   network_interface {
     access_config {
       network_tier = var.network_tier
@@ -41,7 +43,7 @@ resource "google_compute_instance" "instance-1" {
   scheduling {
     automatic_restart   = false
     on_host_maintenance = "TERMINATE"
-    preemptible         = true
+    preemptible         = false
     provisioning_model  = "SPOT"
   }
 
@@ -57,5 +59,4 @@ resource "google_compute_instance" "instance-1" {
   }
 
   tags = var.tags
-  zone = var.zone
 }
