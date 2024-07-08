@@ -6,7 +6,7 @@ provider "google" {
 resource "google_compute_instance" "instance-1" {
   boot_disk {
     auto_delete = true
-    device_name = "instance-1"
+    device_name = var.instance_name
 
     initialize_params {
       image = var.disk_image

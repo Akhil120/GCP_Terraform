@@ -1,4 +1,5 @@
 project_id              = "playground-s-11-1954b9fd"
+instance_name           = "instance-1"
 region                  = "us-central1"
 disk_image              = "projects/debian-cloud/global/images/debian-12-bookworm-v20240701"
 disk_size_gb            = 10

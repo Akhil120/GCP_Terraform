@@ -3,6 +3,11 @@ variable "project_id" {
   type        = string
 }
 
+variable "instance_name" {
+  description = "The name of the instance"
+  type        = string
+}
+
 variable "region" {
   description = "The region to deploy resources in"
   type        = string
